@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Check, Plane, Wifi, Luggage, ArrowRight } from "lucide-react";
+import { Check, Plane, Wifi, Luggage, ArrowRight, Sparkles } from "lucide-react";
 
 interface StepItem {
   id: number;
@@ -178,7 +178,7 @@ export default function Hero() {
                 
                 <div className="flex-1 flex justify-center min-w-0 px-2">
                   <div className="bg-white border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-500 font-mono flex items-center gap-1.5 shadow-2xs max-w-xs w-full justify-center truncate">
-                    <span className="truncate">aita.travel/flights/JFK-LHR</span>
+                    <span className="truncate">flymo.travel/flights/JFK-LHR</span>
                   </div>
                 </div>
 
@@ -349,7 +349,7 @@ export default function Hero() {
               <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.2] tracking-tight max-w-full break-words">
                 {"About "}
                 <span className="relative inline-block text-sky-400">
-                  Flight Ticket Assistant
+                  flymo
                   <svg
                     className="absolute -bottom-1.5 sm:-bottom-2 left-0 w-full h-2 sm:h-2.5 text-sky-400/80"
                     viewBox="0 0 100 12"
