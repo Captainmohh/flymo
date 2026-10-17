@@ -25,7 +25,7 @@ export default function Header() {
           />
           <div className="flex flex-col min-w-0">
             <span className="text-sm sm:text-base md:text-lg font-bold text-card-foreground leading-tight truncate">
-              Flight Ticket Assistant
+              flymo
             </span>
             <span className="hidden sm:block text-xs text-muted-foreground">
               AI-Powered Flight Booking
@@ -48,7 +48,7 @@ export default function Header() {
 
         {/* Right CTA Button */}
         <div className="shrink-0">
-          <Button render={<Link href="/chat" />} size="sm" className="text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl">
+          <Button render={<Link href="/chat" />} nativeButton={false} size="sm" className="text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl">
             Get Started
           </Button>
         </div>

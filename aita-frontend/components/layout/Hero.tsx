@@ -73,6 +73,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-5 sm:mt-6 w-full sm:w-auto justify-center max-w-xs sm:max-w-none mx-auto">
             <Button
               render={<Link href="/chat" />}
+              nativeButton={false}
               size="lg"
               className="w-full sm:w-auto text-sm sm:text-base font-bold rounded-full bg-white text-slate-900 hover:bg-white/90 px-6 py-2.5 shadow-md flex items-center justify-center gap-2"
             >
@@ -81,6 +82,7 @@ export default function Hero() {
             </Button>
             <Button
               render={<Link href="#how-it-works" />}
+              nativeButton={false}
               variant="outline"
               size="lg"
               className="w-full sm:w-auto text-sm sm:text-base font-bold rounded-full border border-white/30 text-white bg-white/5 hover:bg-white/15 px-6 py-2.5 justify-center"
@@ -405,6 +407,7 @@ export default function Hero() {
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Button
                   render={<Link href="/chat" />}
+                  nativeButton={false}
                   size="lg"
                   className="w-full sm:w-auto text-sm sm:text-base font-bold rounded-full bg-white text-slate-900 hover:bg-white/90 px-6 py-2.5 shadow-md flex items-center justify-center gap-2"
                 >

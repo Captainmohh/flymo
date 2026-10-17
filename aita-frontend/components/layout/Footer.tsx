@@ -62,7 +62,7 @@ export default function Footer() {
               className="w-7 h-7 sm:w-8 sm:h-8 object-contain transition-transform group-hover:scale-105"
             />
             <span className="font-heading text-sm font-bold text-white tracking-tight group-hover:text-sky-400 transition-colors">
-              Flight Ticket Assistant
+              flymo
             </span>
           </Link>
           <span className="hidden sm:inline text-white/20">|</span>
