@@ -3,23 +3,16 @@
 import React, { useState } from "react";
 import ChatHeader, { CURRENCIES, CurrencyItem } from "@/components/chat/ChatHeader";
 import ChatSidebar from "@/components/chat/ChatSidebar";
-import ChatInterfaceCard, { ChatMessage } from "@/components/chat/ChatInterfaceCard";
+import ChatInterfaceCard, { ChatMessage, FlightTicketDeal } from "@/components/chat/ChatInterfaceCard";
 import FlightFiltersCard, { FlightFilterValues } from "@/components/chat/FlightFiltersCard";
 import ScenicShowcase from "@/components/chat/ScenicShowcase";
 
 export default function ChatPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [desktopCollapsed, setDesktopCollapsed] = useState(false);
+  const [desktopCollapsed, setDesktopCollapsed] = useState(true);
   const [activeCurrency, setActiveCurrency] = useState<CurrencyItem>(CURRENCIES[0]);
 
-  const initialMessages: ChatMessage[] = [
-    {
-      id: "msg-init-1",
-      sender: "bot",
-      text: "Hello Sarah! Welcome to flymo assistant. I monitor over 500 airlines in real time to guarantee you find the lowest fares, optimal layovers, and flexible booking perks. Here are the top verified options for your route:",
-      isInitialDeals: true,
-    },
-  ];
+  const initialMessages: ChatMessage[] = [];
 
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
 
@@ -41,33 +34,252 @@ export default function ChatPage() {
 
     setMessages((prev) => [...prev, userMsg]);
 
-    // Simulate smart bot response
+    // Simulate smart bot response returning ticket cards
     setTimeout(() => {
       let botResponse = "";
+      let deals: FlightTicketDeal[] | undefined = undefined;
       const lower = userText.toLowerCase();
 
       if (files && files.length > 0) {
-        botResponse = `I received ${files.join(", ")}. Analyzing your uploaded booking details and comparing schedules across 500+ airlines now...`;
-      } else if (lower.includes("baggage") || lower.includes("luggage")) {
-        botResponse =
-          "Both Turkish Airlines and Saudia include 2 pieces of checked baggage (23kg each) + 8kg cabin bag on this international route with zero extra charge.";
-      } else if (lower.includes("cheapest") || lower.includes("price") || lower.includes("discount")) {
-        botResponse = `Turkish Airlines (TK 1976) currently offers the lowest verified round-trip fare at ${activeCurrency.symbol}${Math.round(
-          642 * activeCurrency.rate
-        )}. Plus, your Flymo Gold Club membership entitles you to an additional 15% discount at checkout.`;
-      } else if (lower.includes("flexible") || lower.includes("cancel") || lower.includes("refund")) {
-        botResponse =
-          "All fares shown include free 24-hour cancellation and no change fees up to 48 hours prior to departure.";
-      } else if (lower.includes("search flights:") || lower.includes("dublin") || lower.includes("medina")) {
-        botResponse = `Searching flights for: "${userText}". Found 14 real-time routes matching your criteria. Turkish Airlines via Istanbul and Saudia via Jeddah remain the highest rated for comfort and value.`;
+        botResponse = `I received ${files.join(", ")}. Analyzing your uploaded booking details and comparing live schedules across 500+ airlines...`;
+      } else if (lower.includes("paris") || lower.includes("cdg")) {
+        botResponse = "Here are the top-ranked evening flights to Paris departing next Friday after 6:00 PM matching your criteria:";
+        deals = [
+          {
+            id: "deal-af-1117",
+            airline: "Air France",
+            flightNumber: "AF 1117",
+            airlineCode: "AF",
+            airlineColor: "bg-[#00226C]",
+            tag: "Recommended",
+            tagType: "emerald",
+            aircraft: "Airbus A320neo",
+            amenities: "Wi-Fi & USB Power",
+            departureTime: "18:30",
+            departureAirport: "DUB",
+            departureCity: "Dublin Airport",
+            departureTerminal: "Terminal 1 · Fri, Nov 14",
+            arrivalTime: "21:15",
+            arrivalAirport: "CDG",
+            arrivalCity: "Paris Charles de Gaulle",
+            arrivalTerminal: "Terminal 2E · Fri, Nov 14",
+            duration: "1h 45m",
+            stops: "Non-stop",
+            co2Note: "✓ 18% less CO2 than average",
+            basePriceUSD: 185,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+              "💺 Free standard seat pick",
+            ],
+          },
+          {
+            id: "deal-ei-528",
+            airline: "Aer Lingus",
+            flightNumber: "EI 528",
+            airlineCode: "EI",
+            airlineColor: "bg-emerald-700",
+            tag: "Fastest Flight",
+            tagType: "amber",
+            aircraft: "Airbus A321neo",
+            amenities: "In-Flight Streaming & Wi-Fi",
+            departureTime: "19:40",
+            departureAirport: "DUB",
+            departureCity: "Dublin Airport",
+            departureTerminal: "Terminal 2 · Fri, Nov 14",
+            arrivalTime: "22:25",
+            arrivalAirport: "CDG",
+            arrivalCity: "Paris Charles de Gaulle",
+            arrivalTerminal: "Terminal 1 · Fri, Nov 14",
+            duration: "1h 45m",
+            stops: "Non-stop",
+            co2Note: "Direct evening departure",
+            basePriceUSD: 240,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+            ],
+          },
+          {
+            id: "deal-lh-2515",
+            airline: "Lufthansa",
+            flightNumber: "LH 2515",
+            airlineCode: "LH",
+            airlineColor: "bg-amber-600",
+            tag: "Lowest Fare",
+            tagType: "blue",
+            aircraft: "Airbus A320",
+            amenities: "Free Snacks & Drinks",
+            departureTime: "18:15",
+            departureAirport: "DUB",
+            departureCity: "Dublin Airport",
+            departureTerminal: "Terminal 1 · Fri, Nov 14",
+            arrivalTime: "22:45",
+            arrivalAirport: "CDG",
+            arrivalCity: "Paris Charles de Gaulle",
+            arrivalTerminal: "Terminal 2B · Fri, Nov 14",
+            duration: "3h 30m",
+            stops: "1 stop (55m layover)",
+            co2Note: "Short Frankfurt transfer",
+            basePriceUSD: 165,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+            ],
+          },
+        ];
+      } else if (lower.includes("medina") || lower.includes("med")) {
+        botResponse = "Found verified round-trip routes for Dublin (DUB) ➔ Medina (MED) with checked baggage included:";
+        deals = [
+          {
+            id: "deal-tk-1976",
+            airline: "Turkish Airlines",
+            flightNumber: "TK 1976",
+            airlineCode: "TK",
+            airlineColor: "bg-red-700",
+            tag: "Recommended",
+            tagType: "emerald",
+            aircraft: "Boeing 787-9 Dreamliner",
+            amenities: "Wi-Fi & Full Meal Service",
+            departureTime: "10:45",
+            departureAirport: "DUB",
+            departureCity: "Dublin Airport",
+            departureTerminal: "Terminal 1 · Thu, Nov 6",
+            arrivalTime: "22:15",
+            arrivalAirport: "MED",
+            arrivalCity: "Medina Prince Mohammad",
+            arrivalTerminal: "Terminal 1 · Thu, Nov 6",
+            duration: "10h 30m",
+            stops: "1 stop (IST)",
+            co2Note: "✓ Top rated connecting route",
+            basePriceUSD: 642,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 2x 23kg Checked bags included",
+              "💺 Free standard seat pick",
+            ],
+          },
+          {
+            id: "deal-sv-124",
+            airline: "Saudia",
+            flightNumber: "SV 124",
+            airlineCode: "SV",
+            airlineColor: "bg-emerald-800",
+            tag: "Fastest Route",
+            tagType: "amber",
+            aircraft: "Boeing 777-300ER",
+            amenities: "Halal Dining & Quiet Cabin",
+            departureTime: "13:10",
+            departureAirport: "DUB",
+            departureCity: "Dublin Airport",
+            departureTerminal: "Terminal 2 · Thu, Nov 6",
+            arrivalTime: "23:25",
+            arrivalAirport: "MED",
+            arrivalCity: "Medina Prince Mohammad",
+            arrivalTerminal: "Terminal 1 · Thu, Nov 6",
+            duration: "9h 15m",
+            stops: "1 stop (JED)",
+            co2Note: "Fastest travel time",
+            basePriceUSD: 715,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 2x 23kg Checked bags included",
+            ],
+          },
+        ];
       } else {
-        botResponse = `Got it! I am searching across 500+ global airlines for "${userText}". Real-time seat availability and updated flight schedules have been refreshed.`;
+        botResponse = `Found verified direct flights matching your search:`;
+        deals = [
+          {
+            id: "deal-vs-045",
+            airline: "Virgin Atlantic",
+            flightNumber: "VS045",
+            airlineCode: "VIR",
+            airlineColor: "bg-red-600",
+            tag: "Recommended",
+            tagType: "emerald",
+            aircraft: "Boeing 787-9 Dreamliner",
+            amenities: "Wi-Fi & USB Power",
+            departureTime: "10:15",
+            departureAirport: "LHR",
+            departureCity: "London Heathrow",
+            departureTerminal: "Terminal 3 · Fri, Nov 14",
+            arrivalTime: "13:35",
+            arrivalAirport: "JFK",
+            arrivalCity: "New York John F. Kennedy",
+            arrivalTerminal: "Terminal 4 · Fri, Nov 14",
+            duration: "7h 20m",
+            stops: "Non-stop",
+            co2Note: "✓ 14% less CO2 than average",
+            basePriceUSD: 519,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+              "💺 Free standard seat pick",
+            ],
+          },
+          {
+            id: "deal-ba-0177",
+            airline: "British Airways",
+            flightNumber: "BA0177",
+            airlineCode: "BA",
+            airlineColor: "bg-blue-900",
+            tag: "Fastest Flight",
+            tagType: "amber",
+            aircraft: "Airbus A350-1000",
+            amenities: "State-of-the-art Quiet Cabin",
+            departureTime: "09:30",
+            departureAirport: "LHR",
+            departureCity: "London Heathrow",
+            departureTerminal: "Terminal 5 · Fri, Nov 14",
+            arrivalTime: "12:45",
+            arrivalAirport: "JFK",
+            arrivalCity: "New York John F. Kennedy",
+            arrivalTerminal: "Terminal 7 · Fri, Nov 14",
+            duration: "7h 15m",
+            stops: "Non-stop",
+            co2Note: "Direct morning departure",
+            basePriceUSD: 542,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+            ],
+          },
+          {
+            id: "deal-dl-0002",
+            airline: "Delta Air Lines",
+            flightNumber: "DL0002",
+            airlineCode: "DAL",
+            airlineColor: "bg-red-700",
+            tag: "Lowest Fare",
+            tagType: "blue",
+            aircraft: "Boeing 767-400",
+            amenities: "In-Flight Entertainment",
+            departureTime: "14:10",
+            departureAirport: "LHR",
+            departureCity: "London Heathrow",
+            departureTerminal: "Terminal 3 · Fri, Nov 14",
+            arrivalTime: "17:50",
+            arrivalAirport: "JFK",
+            arrivalCity: "New York John F. Kennedy",
+            arrivalTerminal: "Terminal 4 · Fri, Nov 14",
+            duration: "7h 40m",
+            stops: "Non-stop",
+            co2Note: "Afternoon flight",
+            basePriceUSD: 498,
+            baggageBadges: [
+              "👜 Personal item included",
+              "🧳 23kg Checked bag included",
+            ],
+          },
+        ];
       }
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
         sender: "bot",
         text: botResponse,
+        deals,
       };
 
       setMessages((prev) => [...prev, botMsg]);
@@ -98,7 +310,11 @@ export default function ChatPage() {
   };
 
   const handleFilterSearch = (filters: FlightFilterValues) => {
-    const querySummary = `Search flights: ${filters.origin} → ${filters.destination} · ${filters.tripType} · ${filters.passengers} · ${filters.cabinClass}`;
+    const dateDesc =
+      filters.tripType === "One way" || !filters.dateTo
+        ? `Departing ${filters.dateFrom || "6/11/2026"}`
+        : `${filters.dateFrom || "6/11/2026"} → ${filters.dateTo || "20/11/2026"}`;
+    const querySummary = `Search: ${filters.origin} → ${filters.destination} · ${dateDesc} · ${filters.tripType} · ${filters.passengers} · ${filters.cabinClass}`;
     handleSendMessage(querySummary);
   };
 

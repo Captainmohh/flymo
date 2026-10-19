@@ -8,10 +8,6 @@ export default function ScenicShowcase() {
 
   return (
     <div className="flex flex-col gap-4 h-full w-full select-none">
-      {/* =====================================================================
-          SCENIC CARD 1: CLIFFS OF MOHER (DUBLIN / IRELAND ICONIC COASTLINE)
-          Clean aesthetic with rounded corners, NO name badge overlays
-          ===================================================================== */}
       <div
         className="group relative flex-1 min-h-[170px] sm:min-h-[220px] lg:min-h-[275px] w-full overflow-hidden rounded-[20px] border border-gray-200/90 shadow-[0_4px_18px_rgba(0,0,0,0.06)] bg-[#0c2444]"
         title="Cliffs of Moher coastal cliffs and Atlantic Ocean"
@@ -95,11 +91,6 @@ export default function ScenicShowcase() {
         {/* Subtle vignette gradient for depth (no text overlay) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
       </div>
-
-      {/* =====================================================================
-          SCENIC CARD 2: AFRICAN SCENIC PLACE (SERENGETI SAVANNA SUNSET)
-          Clean aesthetic with rounded corners, NO name badge overlays
-          ===================================================================== */}
       <div
         className="group relative flex-1 min-h-[170px] sm:min-h-[220px] lg:min-h-[275px] w-full overflow-hidden rounded-[20px] border border-gray-200/90 shadow-[0_4px_18px_rgba(0,0,0,0.06)] bg-[#451a03]"
         title="African scenic savanna landscape at sunset"
